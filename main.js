@@ -1,3 +1,6 @@
+//global title namespace
+var originalTitle = document.title;
+
 function callbackDJAdvance(obj) {
 
   //Auto-woot
@@ -10,7 +13,11 @@ function callbackDJAdvance(obj) {
 	var nowPlaying = title + " by  " + author;
   var playedBy = "Played by " + obj.dj.username;
 
-	var notification = new Notification( nowPlaying, { icon: 'http://stephentvedt.com/fun/icon-128.png', body: playedBy });
+	var notification = new Notification( nowPlaying, {
+    icon: 'http://stephentvedt.com/plug-notify/song.jpg',
+    body: playedBy,
+    tag: 'song'
+  });
 
     notification.onshow = function () { setTimeout( function() { notification.close(); }, 6000); }
     notification.onclick = function(x) { window.focus(); }
@@ -31,9 +38,27 @@ function callbackChat (data) {
 
   data.language // the two character code of the incoming language
   if ( data.message.indexOf(userNameMention) > -1 ){
-    var notification = new Notification( "You were mentioned in chat!", { icon: 'http://stephentvedt.com/fun/icon-128.png', body: data.message });
 
-    notification.onshow = function () { setTimeout( function() { notification.close(); }, 6000); }
+    var count = 0;
+
+    titleUpdate = setInterval( function(){
+
+      if (count%2 != 1) {
+        window.document.title = "New Mention"
+      } else {
+        window.document.title = originalTitle;
+      }
+
+      count++;
+
+    }, 700);
+
+    var notification = new Notification( "You were mentioned in chat!", {
+      icon: 'http://stephentvedt.com/plug-notify/message.png',
+      body: data.message,
+      tag: 'mention'
+    });
+
     notification.onclick = function(x) { window.focus(); }
   }
 
@@ -79,6 +104,11 @@ $(window).on('load', function(){
   var $button = $('body').one('click', function(){
     checkNotifcationsEnabled();
   });
+});
+
+$(window).on('focus', function(){
+  clearInterval(titleUpdate);
+  document.title = originalTitle;
 });
 
 //Wait for API to be defined
