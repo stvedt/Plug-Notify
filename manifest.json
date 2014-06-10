@@ -14,8 +14,7 @@
     }
   ],
   "permissions": [
-    "http://plug.dj/",
-    "notifications"
+    "http://plug.dj/"
   ],
   "web_accessible_resources": ["main.js"]
 
