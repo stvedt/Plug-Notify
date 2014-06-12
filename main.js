@@ -1,5 +1,6 @@
 //global title namespace
 var originalTitle = document.title;
+var titleUpdate;
 
 function callbackDJAdvance(obj) {
 
