@@ -9,12 +9,12 @@ function callbackDJAdvance(obj) {
     $('#woot').trigger("click");
   }, 4000);
 
-	var title = obj.media.title;
-	var author = obj.media.author;
-	var nowPlaying = title + " by  " + author;
+  var title = obj.media.title;
+  var author = obj.media.author;
+  var nowPlaying = title + " by  " + author;
   var playedBy = "Played by " + obj.dj.username;
 
-	var notification = new Notification( nowPlaying, {
+  var notification = new Notification( nowPlaying, {
     icon: 'http://stephentvedt.com/plug-notify/song.jpg',
     body: playedBy,
     tag: 'song'
@@ -42,13 +42,14 @@ function callbackChat (data) {
 
     var notification = new Notification( "You were mentioned in chat!", {
       icon: 'http://stephentvedt.com/plug-notify/message.png',
-      body: data.message,
-      tag: 'mention'
+      body: data.message
     });
 
     notification.onclick = function(x) { window.focus(); }
 
     var count = 0;
+
+    clearInterval(titleUpdate);
 
     titleUpdate = setInterval( function(){
 
@@ -96,18 +97,21 @@ function checkNotifcationsEnabled(){
     });
   }
 
-
   // At last, if the user already denied any notification, and you 
   // want to be respectful there is no need to bother him any more.
 }
+var $window = $(window);
 
-$(window).on('load', function(){
-  var $button = $('body').one('click', function(){
-    checkNotifcationsEnabled();
-  });
+$window.on('load', function(){
+  var $button = $('body').one('click', function(){ checkNotifcationsEnabled(); });
 });
 
-$(window).on('focus', function(){
+$window.on('focus', function(){
+  clearInterval(titleUpdate);
+  document.title = originalTitle;
+});
+
+$window.find('body').on('click', function(){
   clearInterval(titleUpdate);
   document.title = originalTitle;
 });
@@ -118,8 +122,8 @@ function init() {
     //Write your code here
     API.on(API.DJ_ADVANCE, callbackDJAdvance);
     API.on(API.CHAT, callbackChat);
-
 }
+
 function cinit() {
     if (typeof window.API == "object") {
         clearInterval(loadClock);
@@ -129,4 +133,5 @@ function cinit() {
         return 0;
     }
 }
+
 var loadClock = setInterval(cinit, 500);
