@@ -40,6 +40,14 @@ function callbackChat (data) {
   data.language // the two character code of the incoming language
   if ( data.message.indexOf(userNameMention) > -1 ){
 
+    var notification = new Notification( "You were mentioned in chat!", {
+      icon: 'http://stephentvedt.com/plug-notify/message.png',
+      body: data.message,
+      tag: 'mention'
+    });
+
+    notification.onclick = function(x) { window.focus(); }
+
     var count = 0;
 
     titleUpdate = setInterval( function(){
@@ -53,14 +61,6 @@ function callbackChat (data) {
       count++;
 
     }, 700);
-
-    var notification = new Notification( "You were mentioned in chat!", {
-      icon: 'http://stephentvedt.com/plug-notify/message.png',
-      body: data.message,
-      tag: 'mention'
-    });
-
-    notification.onclick = function(x) { window.focus(); }
   }
 
 }
