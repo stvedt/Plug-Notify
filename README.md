@@ -7,6 +7,7 @@ https://chrome.google.com/webstore/detail/plug-notify/ofoajhhdimlfpfhdcngpfakkip
 
 ## Change Log
 
+* 0.0.4 - Update for compatibility for 
 * 0.0.4 - More bugfixes for titles and clearing.  Remove tag for metions.
 * 0.0.3 - Bugfix undefined variable
 * 0.0.2 - Add tags to notification to prevent multiple alerts for same type of alert and add title change and flashing of tab if pinned.
@@ -14,6 +15,7 @@ https://chrome.google.com/webstore/detail/plug-notify/ofoajhhdimlfpfhdcngpfakkip
 
 ## Feature Requests / Improvements
 
+* UI for enabling/disabling autowooting, mentions, song titles.
 * Profanity Filtering
 * HTML Entity Encoding fix in notifications
 * Auto Grabbing
