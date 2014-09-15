@@ -7,7 +7,9 @@ https://chrome.google.com/webstore/detail/plug-notify/ofoajhhdimlfpfhdcngpfakkip
 
 ## Change Log
 
-* 0.0.4 - Update for compatibility for 
+* 0.0.7 - Self containment of the plugin in a self-invoking anonymous function. Also move logic to inject JS file until after the Plug.dj API is available. This also solve dependency problems with jQuery.
+* 0.0.6 - Clean up of source code.
+* 0.0.5 - Update for compatibility for Plug.dj site update.
 * 0.0.4 - More bugfixes for titles and clearing.  Remove tag for metions.
 * 0.0.3 - Bugfix undefined variable
 * 0.0.2 - Add tags to notification to prevent multiple alerts for same type of alert and add title change and flashing of tab if pinned.
