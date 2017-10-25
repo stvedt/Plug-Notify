@@ -4,7 +4,7 @@
     "name": "Plug Notify",
     "description": "A Chrome Extension that sends desktop notifications about current song being played and @mentions in chat.",
     "version": "0.0.8",
-    "icons": { "64": "img/icon-64.png" },
+    "icons": { "128": "img/icon-128.png" },
 
     "content_scripts": [{
         "matches": [
@@ -15,9 +15,11 @@
         "js": ["inject.js"]
     }],
     "permissions": [
+        "storage",
         "http://plug.dj/*",
         "https://plug.dj/*"
     ],
+    "options_page": "options.html",
     "web_accessible_resources": ["main.js"]
 
 }

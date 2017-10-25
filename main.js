@@ -9,23 +9,30 @@
     function callbackDJAdvance(obj) {
 
         //Auto-woot
-        setTimeout( function(){
-            $('#woot').trigger("click");
-        }, 4000);
+        if(autoWoot) {
+            setTimeout( function(){
+                $('#woot').trigger("click");
+            }, 4000);
+        } else {
+            console.log("Autowoot disable")
+        }
 
-        var title = obj.media.title;
-        var author = obj.media.author;
-        var nowPlaying = title + " by  " + author;
-        var playedBy = "Played by " + obj.dj.username;
 
-        var notification = new Notification( nowPlaying, {
-            icon: 'http://stephentvedt.com/plug-notify/song.jpg',
-            body: playedBy,
-            tag: 'song'
-        });
+        if(notifMusic) {
+            var title = obj.media.title;
+            var author = obj.media.author;
+            var nowPlaying = title + " by  " + author;
+            var playedBy = "Played by " + obj.dj.username;
 
-        notification.onshow = function () { setTimeout( function() { notification.close(); }, 6000); }
-        notification.onclick = function(x) { window.focus(); }
+            var notification = new Notification( nowPlaying, {
+                icon: 'http://stephentvedt.com/plug-notify/song.jpg',
+                body: playedBy,
+                tag: 'song'
+            });
+
+            notification.onshow = function () { setTimeout( function() { notification.close(); }, 6000); }
+            notification.onclick = function(x) { window.focus(); }
+        }
 
     }
 
@@ -119,7 +126,9 @@
 
     
     API.on(API.ADVANCE, callbackDJAdvance);
-    API.on(API.CHAT, callbackChat);
+    if(notifMessage) {
+        API.on(API.CHAT, callbackChat);
+    }
     console.log('hi');
     //Wait for API to be defined
 
