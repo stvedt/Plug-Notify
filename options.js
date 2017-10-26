@@ -17,9 +17,11 @@ function save_options() {
     // Update status to let user know options were saved.
     var status = document.getElementById('status');
     status.textContent = 'Options saved.';
+    status.style.display = "block";
     setTimeout(function() {
       status.textContent = '';
-    }, 1000);
+      status.style.display = "none";
+    }, 1500);
   });
 }
 

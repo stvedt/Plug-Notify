@@ -1,27 +1,181 @@
 <!DOCTYPE html>
 <html>
-<head><title>Plug-Notify Options</title></head>
+<head>
+    <title>Plug-Notify Options</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style> /* CSS code from Cover template Bootstrap */
+    html,
+    body {
+        height: 100%;
+        background-color: #333;
+    }
+    body {
+        color: #fff;
+        text-align: center;
+        text-shadow: 0 1px 3px rgba(0,0,0,.5);
+    }
+
+
+    /* Extra markup and styles for table-esque vertical and horizontal centering */
+    .site-wrapper {
+        display: table;
+        width: 100%;
+        height: 100%; /* For at least Firefox */
+        min-height: 100%;
+        -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+              box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+    }
+    .site-wrapper-inner {
+        display: table-cell;
+        vertical-align: top;
+    }
+    .cover-container {
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    /* Padding for spacing */
+    .inner {
+        padding: 30px;
+    }
+
+    .masthead-brand {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+
+    @media (min-width: 768px) {
+        .masthead-brand {
+            float: left;
+        }
+        .masthead-nav {
+            float: right;
+        }
+    }
+
+    /*
+     * Affix and center
+     */
+    @media (min-width: 768px) {
+        /* Pull out the header and footer */
+        .masthead {
+            position: fixed;
+            top: 0;
+        }
+        .mastfoot {
+            position: fixed;
+            bottom: 0;
+        }
+        /* Start the vertical centering */
+        .site-wrapper-inner {
+            vertical-align: middle;
+        }
+        /* Handle the widths */
+        .masthead,
+        .mastfoot,
+        .cover-container {
+            width: 100%; /* Must be percentage or pixels for horizontal alignment */
+        }
+    }
+
+    @media (min-width: 992px) {
+        .masthead,
+        .mastfoot,
+        .cover-container {
+            width: 700px;
+        }
+    }
+
+
+    /*
+     * Cover
+     */
+    .cover {
+        padding: 0 20px;
+    }
+    .cover .btn-lg {
+        padding: 10px 20px;
+        font-weight: bold;
+    }
+
+
+    /*
+     * Footer
+     */
+    .mastfoot {
+        color: #999; /* IE8 proofing */
+        color: rgba(255,255,255,.5);
+    }
+
+    .title-icon {
+        background-color: white;
+        width: 45px;
+        float: left;
+        margin-right: 10px;
+        padding: 4px;
+    }
+
+    </style>
+</head>
 <body>
+    <div class="site-wrapper">
 
-Notifications preferences:
-<label>
-  <input type="checkbox" id="music">
-  New music playing
-</label>
+        <div class="site-wrapper-inner">
 
-<label>
-  <input type="checkbox" id="message">
-  Tchat message
-</label>
+            <div class="cover-container">
 
-<label>
-  <input type="checkbox" id="woot">
-  Auto woot
-</label>
+                <div class="masthead clearfix">
+                    <div class="inner">
+                        <img src="img/Plug-Notify-Logo.png" class="img-circle title-icon">
+                        <h3 class="masthead-brand">Plug-Notify</h3>
+                    </div>
+                </div>
 
-<div id="status"></div>
-<button id="save">Save</button>
+                <div id="status" class="alert alert-success" style="display: none;" role="alert"></div>
 
+                <div class="inner cover">
+                    <h1 class="cover-heading">Preferences</h1>
+
+                    <div class="text-left col-md-offset-3">
+                        <label>
+                            <input type="checkbox" id="music">
+                            Notification on new music playing
+                        </label>
+                        <br />
+                        <label>
+                            <input type="checkbox" id="message">
+                            Notification on tchat message
+                        </label><br />
+                        <label>
+                            <input type="checkbox" id="woot">
+                            Auto woot
+                        </label>
+                    </div>
+                    <p class="lead">
+                        <a href="#" id="save" class="btn btn-lg btn-success">Save</a>
+                    </p>
+                </div>
+
+                <div class="mastfoot">
+                    <div class="inner">
+                        <p>
+                            Cover template from <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>, 
+                            by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.
+                        </p>
+                        <p>
+                            Add on Chrome source: <a href="https://github.com/stvedt/Plug-Notify">GitHub</a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 <script src="options.js"></script>
 </body>
 </html>
