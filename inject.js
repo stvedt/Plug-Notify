@@ -35,13 +35,19 @@ function loadAfterConfig() {
 
 var notifMusic = false;
 var notifMessage = false;
+var notifMention = false;
 var autoWoot = false;
+var debugMode = false;
 
-chrome.storage.sync.get(["notifMusic", "notifMessage", "autoWoot"], function(items) {
+chrome.storage.sync.get(["notifMusic", "notifMessage", "notifMention", "autoWoot", "debugMode"], function(items) {
     notifMusic = items.notifMusic;
     notifMessage = items.notifMessage;
+    notifMention = items.notifMention;
     autoWoot = items.autoWoot;
-    
-    console.log('Load config: ' + notifMusic + " - " + notifMessage + " - " + autoWoot);
+    debugMode = items.debugMode;
+
+    if(debugMode) {
+        console.log('Load config: ' + notifMusic + " - " + notifMessage + " - " + notifMention + " - " + autoWoot);
+    }
     loadAfterConfig();
 });

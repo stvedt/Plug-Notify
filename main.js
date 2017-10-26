@@ -13,7 +13,7 @@
             setTimeout( function(){
                 $('#woot').trigger("click");
             }, 4000);
-        } else {
+        } else if(debugMode) {
             console.log("Autowoot disable")
         }
 
@@ -51,32 +51,41 @@
         data.language // the two character code of the incoming language
 
         var userNameMention = '@'+ API.getUser().username;
+        var mention = false;
+        var msgNotification;
 
-        if ( data.message.indexOf(userNameMention) > -1 ){
+        if (data.message.indexOf(userNameMention) > -1) {
+            msgNotification = "You were mentioned in chat!";
+            mention = true;
 
-        var notification = new Notification( "You were mentioned in chat!", {
-            icon: 'http://stephentvedt.com/plug-notify/message.png',
-            body:  wordFilter(data.message)
-        });
+        } else {
+            msgNotification = "New chat message";
 
-        notification.onclick = function(x) { window.focus(); }
+        }
 
-        var count = 0;
+        if(notifMessage || (notifMention && mention)) {
+            var notification = new Notification(msgNotification, {
+                icon: 'http://stephentvedt.com/plug-notify/message.png',
+                body:  wordFilter(data.message)
+            });
 
-        clearInterval(titleUpdate);
+            notification.onclick = function(x) { window.focus(); }
 
-        titleUpdate = setInterval( function(){
+            var count = 0;
+            clearInterval(titleUpdate);
 
-            if (count%2 != 1) {
-                window.document.title = "New Mention"
-            } else {
-                window.document.title = originalTitle;
-            }
+            titleUpdate = setInterval( function(){
 
-          count++;
+                if (count%2 != 1) {
+                    window.document.title = "New Mention"
+                } else {
+                    window.document.title = originalTitle;
+                }
 
-        }, 700);
-      }
+              count++;
+
+            }, 700);
+        }
 
     }
 
