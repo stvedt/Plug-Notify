@@ -44,8 +44,11 @@
 
     function callbackChat (data) {
 
+        console.log("Debug data:")
+        console.log(data)
+
         data.type // "message", "emote", "moderation", "system"
-        data.from // the username of the person
+        data.un // the username of the person
         data.fromID // the user id of the person
         data.message // the chat message
         data.language // the two character code of the incoming language
@@ -53,12 +56,12 @@
         var userNameMention = '@'+ API.getUser().username;
         var mention = false;
         var msgNotification;
-        if(data.from == API.getUser().username) { // Ignore if it's own message
+        if(data.un == API.getUser().username) { // Ignore if it's own message
             return;
         }
 
         if (data.message.indexOf(userNameMention) > -1) {
-            msgNotification = data.from + " mention you in chat!";
+            msgNotification = data.un + " mention you in chat!";
             mention = true;
 
         } else {
@@ -69,7 +72,7 @@
         if(notifMessage || (notifMention && mention)) {
             var notification = new Notification(msgNotification, {
                 icon: 'http://stephentvedt.com/plug-notify/message.png',
-                body:  data.from + ": " + wordFilter(data.message)
+                body:  data.un + ": " + wordFilter(data.message)
             });
 
             notification.onclick = function(x) { window.focus(); }
