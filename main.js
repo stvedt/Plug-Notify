@@ -53,9 +53,12 @@
         var userNameMention = '@'+ API.getUser().username;
         var mention = false;
         var msgNotification;
+        if(data.from == API.getUser().username) { // Ignore if it's own message
+            return;
+        }
 
         if (data.message.indexOf(userNameMention) > -1) {
-            msgNotification = "You were mentioned in chat!";
+            msgNotification = data.from + " mention you in chat!";
             mention = true;
 
         } else {
@@ -66,7 +69,7 @@
         if(notifMessage || (notifMention && mention)) {
             var notification = new Notification(msgNotification, {
                 icon: 'http://stephentvedt.com/plug-notify/message.png',
-                body:  wordFilter(data.message)
+                body:  data.from + ": " + wordFilter(data.message)
             });
 
             notification.onclick = function(x) { window.focus(); }
