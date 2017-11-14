@@ -9,23 +9,30 @@
     function callbackDJAdvance(obj) {
 
         //Auto-woot
-        setTimeout( function(){
-            $('#woot').trigger("click");
-        }, 4000);
+        if(autoWoot) {
+            setTimeout( function(){
+                $('#woot').trigger("click");
+            }, 4000);
+        } else if(debugMode) {
+            console.log("Autowoot disable")
+        }
 
-        var title = obj.media.title;
-        var author = obj.media.author;
-        var nowPlaying = title + " by  " + author;
-        var playedBy = "Played by " + obj.dj.username;
 
-        var notification = new Notification( nowPlaying, {
-            icon: 'http://stephentvedt.com/plug-notify/song.jpg',
-            body: playedBy,
-            tag: 'song'
-        });
+        if(notifMusic) {
+            var title = obj.media.title;
+            var author = obj.media.author;
+            var nowPlaying = title + " by  " + author;
+            var playedBy = "Played by " + obj.dj.username;
 
-        notification.onshow = function () { setTimeout( function() { notification.close(); }, 6000); }
-        notification.onclick = function(x) { window.focus(); }
+            var notification = new Notification( nowPlaying, {
+                icon: 'http://stephentvedt.com/plug-notify/song.jpg',
+                body: playedBy,
+                tag: 'song'
+            });
+
+            notification.onshow = function () { setTimeout( function() { notification.close(); }, 6000); }
+            notification.onclick = function(x) { window.focus(); }
+        }
 
     }
 
@@ -37,39 +44,54 @@
 
     function callbackChat (data) {
 
+        console.log("Debug data:")
+        console.log(data)
+
         data.type // "message", "emote", "moderation", "system"
-        data.from // the username of the person
+        data.un // the username of the person
         data.fromID // the user id of the person
         data.message // the chat message
         data.language // the two character code of the incoming language
 
         var userNameMention = '@'+ API.getUser().username;
+        var mention = false;
+        var msgNotification;
+        if(data.un == API.getUser().username) { // Ignore if it's own message
+            return;
+        }
 
-        if ( data.message.indexOf(userNameMention) > -1 ){
+        if (data.message.indexOf(userNameMention) > -1) {
+            msgNotification = data.un + " mention you in chat!";
+            mention = true;
 
-        var notification = new Notification( "You were mentioned in chat!", {
-            icon: 'http://stephentvedt.com/plug-notify/message.png',
-            body:  wordFilter(data.message)
-        });
+        } else {
+            msgNotification = "New chat message";
 
-        notification.onclick = function(x) { window.focus(); }
+        }
 
-        var count = 0;
+        if(notifMessage || (notifMention && mention)) {
+            var notification = new Notification(msgNotification, {
+                icon: 'http://stephentvedt.com/plug-notify/message.png',
+                body:  data.un + ": " + wordFilter(data.message)
+            });
 
-        clearInterval(titleUpdate);
+            notification.onclick = function(x) { window.focus(); }
 
-        titleUpdate = setInterval( function(){
+            var count = 0;
+            clearInterval(titleUpdate);
 
-            if (count%2 != 1) {
-                window.document.title = "New Mention"
-            } else {
-                window.document.title = originalTitle;
-            }
+            titleUpdate = setInterval( function(){
 
-          count++;
+                if (count%2 != 1) {
+                    window.document.title = "New Mention"
+                } else {
+                    window.document.title = originalTitle;
+                }
 
-        }, 700);
-      }
+              count++;
+
+            }, 700);
+        }
 
     }
 
@@ -119,7 +141,9 @@
 
     
     API.on(API.ADVANCE, callbackDJAdvance);
-    API.on(API.CHAT, callbackChat);
+    if(notifMessage) {
+        API.on(API.CHAT, callbackChat);
+    }
     console.log('hi');
     //Wait for API to be defined
 
