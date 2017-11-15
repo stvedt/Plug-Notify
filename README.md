@@ -6,7 +6,7 @@ Plug Notify
 https://chrome.google.com/webstore/detail/plug-notify/ofoajhhdimlfpfhdcngpfakkippmdkel
 
 ## Change Log
-
+* 1.0.0 - Add options page to customize alerts/notification you wish to receive.
 * 0.0.8 - Profanity Filter & HTML Entity Encoding fix in notifications
 * 0.0.7 - Self containment of the plugin in a self-invoking anonymous function. Also move logic to inject JS file until after the Plug.dj API is available. This also solve dependency problems with jQuery.
 * 0.0.6 - Clean up of source code.
